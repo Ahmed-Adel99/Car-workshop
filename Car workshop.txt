@@ -1,0 +1,139 @@
+#include<iostream>
+using namespace std;
+struct Node
+        {
+    int customer_ID;
+    struct Node* link;
+};
+
+Node * front= NULL;
+Node * rear= NULL;
+Node * top= NULL;
+
+void Enqueue(int q)
+{
+    Node * p = new Node;
+    p->customer_ID=q;
+    p->link=NULL;
+
+    if(front==NULL && rear==NULL)
+    {
+        front=rear=p;
+        return;
+    }
+    rear->link=p;
+    rear=p;
+}
+
+void Dequeue()
+{
+    Node*temp=front;
+
+    if(front==NULL)
+    {
+        printf("Queue is Empty");
+        return;
+    }
+
+    if(front==rear)
+    {
+        front=rear=NULL;
+    }
+    else
+        {
+        front=front->link;
+    }
+
+    free(temp);
+}
+
+void Front()
+{
+    if(front==NULL)
+
+    {
+        printf("Queue is Empty");
+        return ;
+    }
+
+    cout << front->customer_ID << endl;
+}
+
+void print()
+{
+    Node*temp=front;
+
+    while (temp!=NULL)
+    {
+        cout << temp->customer_ID << " ";
+        temp=temp->link;
+    }
+
+    cout<<endl;
+}
+
+void push(int y)
+{
+    Node* newnode= new Node;
+    newnode->customer_ID=y;
+    newnode->link=top;
+    top= newnode;
+}
+
+void pop()
+{
+    cout<<"this is most end order"<<endl;
+    while (top!=NULL)
+
+    {
+        cout << top->customer_ID << " ";
+        top=top->link;
+    }
+    cout<< endl;
+}
+
+int main()
+
+{
+    int Number;
+    cout<<"(Welcome To Car Workshop) "<<endl;
+    cout<<"Choose From 1 to 5\n"
+          "1. Add a New Customer.\n"
+          "2. Serve a Customer.\n"
+          "3. Display Customers Information and display his position in the queue (How many people are head of them?).\n"
+          "4. Display Customers information in the (most-recent order) \n"
+          "5. Exit menu"
+          <<endl;
+    cin>>Number;
+
+    while (Number!=5){
+        if(Number==1){
+            cout<<"please enter Coustomer Id";
+            int l;
+            cin>>l;
+            Enqueue(l);
+        }
+        if(Number==2){
+            Front();
+            Dequeue();
+
+        }
+        if(Number==3){
+            print();
+
+        }
+        if(Number==4){
+            Node*we=front;
+            while (we!=NULL){
+                push(we->customer_ID);
+                we=we->link;
+            }
+            pop();
+
+        }
+
+        cout<<"pleas enter number"<<endl;
+        cin>>Number;
+    }
+    return 0;
+}
